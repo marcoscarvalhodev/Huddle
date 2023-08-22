@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Container } from "./components/styles/Container.styled";
+import { ThemeProvider } from "styled-components";
+import Card from "./components/Card";
+import Header from "./components/Header";
+import GlobalStyles from "./components/styles/Global";
+import Hero from "./components/Hero";
+import content from "./Content";
+import Footer from "./components/Footer";
 
-function App() {
+const theme = {
+  colors: {
+    header: "#ebfbff",
+    body: "#fff",
+    footer: "#003333",
+  },
+  mobile: "768px",
+}; //this creates a theme for the application to use it generally as reusable colors in the project for instance
+
+const App = () => {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <Header></Header>
+      <Hero></Hero>
+      <Container>
+        <main>
+        {content.map((item, index) => {
+        return <Card key={index} {...item}/>
+      })}
+      </main>
+      </Container>
+      {/*instead of adding classes for global elements, we add the name for the
+      component itself, and then create a components folder to add styled to it*/}
+      
+      <Footer></Footer>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
